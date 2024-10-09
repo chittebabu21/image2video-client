@@ -10,6 +10,14 @@ const routes: Routes = [
       {
         path: 'generate',
         loadChildren: () => import('./pages/generate/generate.module').then( m => m.GeneratePageModule)
+      },
+      {
+        path: 'gallery',
+        loadChildren: () => import('./pages/gallery/gallery.module').then( m => m.GalleryPageModule)
+      },
+      {
+        path: 'account',
+        loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
       }
     ]
   }

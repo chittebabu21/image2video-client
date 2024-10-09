@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../interfaces/user';
 import { JsonResponse } from '../interfaces/json-response';
 import { ResetPasswordModalComponent } from '../components/reset-password-modal/reset-password-modal.component';
-import { catchError, EMPTY, of, switchMap, tap } from 'rxjs';
+import { catchError, of, switchMap, tap } from 'rxjs';
 
 interface LoginResponse {
   success: 0 | 1;

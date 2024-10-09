@@ -1,13 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>generate</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">generate</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-sub-header></app-sub-header>
+
+  <div class="title-container">
+    <ion-text color="primary" *ngIf="!imageUrl">UPLOAD YOUR IMAGE BELOW!</ion-text>
+    <ion-text color="primary" *ngIf="imageUrl">CLICK GENERATE TO GET YOUR VIDEO!</ion-text>
+  </div>  
+
+  <div class="picker">
+    <ion-item>
+      <ion-img
+        role="button"
+        class="image"
+        *ngIf="imageUrl"
+        [src]="imageUrl"
+        (click)="onImagePicked()"
+      ></ion-img>
+
+      <ion-button
+        color="primary"
+        size="medium"
+        (click)="onImagePicked()"
+        *ngIf="!imageUrl"
+      >
+        <ion-label color="light">SELECT IMAGE</ion-label>
+        <ion-icon name="image-outline" slot="start" color="light"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+
+  <ion-item *ngIf="imageUrl" class="btn-container">
+    <ion-button
+      color="tertiary"
+      size="large"
+      shape="round"
+    >
+      <ion-label color="light">GENERATE NOW!</ion-label>
+    </ion-button>
+  </ion-item>
 </ion-content>
