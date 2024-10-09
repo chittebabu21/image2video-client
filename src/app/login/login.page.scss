@@ -1,0 +1,83 @@
+.title-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#form-container {
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0 1em;
+}
+
+ion-text {
+    font-family: 'Joti One', sans-serif !important;
+    font-size: 1.8em;
+    font-style: normal;
+    padding: 1.2em 0.3em;
+    text-align: center;
+}
+
+ion-input {
+    margin: 15px 10px;
+    color: var(--ion-color-dark-tint);
+    background-color: var(--ion-color-light);
+}
+
+ion-button {
+    margin: 10px 30px;
+    letter-spacing: 0.3em;
+}
+
+a {
+    text-decoration: none;
+    color: var(--ion-color-tertiary);
+}
+
+.text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0.8em;
+}
+
+.g-signin {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.error {
+    color: var(--ion-color-danger);
+}
+
+@media only screen and (min-width: 500px) {
+    /** for desktop */
+    #form-container {
+        max-width: 500px; /* Limit form width */
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    ion-item {
+        width: 100%; /* Full width of the input container */
+        max-width: 400px; /* Limit the width of each input */
+    }
+
+    ion-input {
+        width: 100%;
+        max-width: 400px; /* Restrict input width */
+        margin: 15px 0;
+    }
+
+    ion-button {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px 0;
+    }
+
+}

@@ -1,0 +1,70 @@
+<app-header></app-header>
+
+<ion-content [fullscreen]="true">
+    <div class="title-container">
+        <ion-text color="primary">LOGIN TO GENERATE VIDEOS!</ion-text>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <ion-list id="form-container">
+            <ion-item>
+                <ion-input
+                    labelPlacement="floating"
+                    label="Email Address"
+                    fill="outline"
+                    shape="round"
+                    clearInput="true"
+                    type="email"
+                    formControlName="email_address"
+                ></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input
+                    labelPlacement="floating"
+                    label="Password"
+                    fill="outline"
+                    shape="round"
+                    clearInput="true"
+                    type="password"
+                    formControlName="password_hash"
+                ></ion-input>
+            </ion-item>
+
+            <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+            <ion-button
+                fill="solid"
+                color="tertiary"
+                expand="block"
+                shape="round"
+                type="submit"
+                [disabled]="loginForm.invalid"
+            >
+                <ion-icon name="log-in-outline" slot="end"></ion-icon>
+                LOGIN
+            </ion-button>
+
+            <p>OR</p>
+
+            <asl-google-signin-button 
+                type="standard"
+                theme="filled_blue"
+                text="signin_with"
+                size="large"
+                shape="pill"
+                logo_alignment="left" 
+                class="g-signin"
+            ></asl-google-signin-button>
+        
+            <script src="https://accounts.google.com/gsi/client" async></script>
+            <br>
+
+            <ion-text class="text" color="primary">Do not have an account? Sign up <a routerLink="/register">here.</a></ion-text>
+            <br>
+            <ion-text class="text" color="primary">Forgot your password? Reset password <a (click)="openModal()">here.</a></ion-text>
+        </ion-list>
+    </form>
+</ion-content>
+
+<app-footer></app-footer>

@@ -1,0 +1,62 @@
+<app-header></app-header>
+
+<ion-content [fullscreen]="true">
+  <div class="title-container">
+    <ion-text color="primary">REGISTER HERE!</ion-text>
+  </div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <ion-list id="form-container">
+      <ion-item>
+        <ion-input
+          labelPlacement="floating"
+          label="Email Address"
+          fill="outline"
+          shape="round"
+          clearInput="true"
+          type="email"
+          formControlName="email_address"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          labelPlacement="floating"
+          label="Password"
+          fill="outline"
+          shape="round"
+          clearInput="true"
+          type="password"
+          formControlName="password_hash"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          labelPlacement="floating"
+          label="Confirm Password"
+          fill="outline"
+          shape="round"
+          clearInput="true"
+          type="password"
+          formControlName="confirm_password"
+        ></ion-input>
+      </ion-item>
+
+      <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+      <ion-button
+        fill="solid"
+        color="tertiary"
+        expand="block"
+        shape="round"
+        type="submit"
+        [disabled]="registerForm.invalid"
+      >REGISTER</ion-button>
+
+      <ion-text class="text" color="primary">Already have an account? Login <a routerLink="/login">here.</a></ion-text>
+    </ion-list>
+  </form>
+</ion-content>
+
+<app-footer></app-footer>
