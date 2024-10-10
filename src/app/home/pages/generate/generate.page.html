@@ -20,7 +20,7 @@
 
       <ion-button
         color="primary"
-        size="medium"
+        size="default"
         (click)="onImagePicked()"
         *ngIf="!imageUrl"
       >
@@ -30,13 +30,15 @@
     </ion-item>
   </div>
 
-  <ion-item *ngIf="imageUrl" class="btn-container">
-    <ion-button
-      color="tertiary"
-      size="large"
-      shape="round"
-    >
-      <ion-label color="light">GENERATE NOW!</ion-label>
-    </ion-button>
-  </ion-item>
+  <ion-list *ngIf="imageUrl" class="btn-container">
+    <ion-item>
+      <ion-button
+        color="tertiary"
+        size="large"
+        shape="round"
+      >
+        <ion-label color="light">GENERATE NOW!</ion-label>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
