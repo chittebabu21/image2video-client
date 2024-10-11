@@ -6,6 +6,10 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 import { Helper } from '../../../utility/helper';
 import { UserService } from '../../../services/user.service';
+import { ImageService } from '../../../services/image.service';
+import { VideoService } from '../../../services/video.service';
+import { Image } from '../../../interfaces/image';
+import { Video } from '../../../interfaces/video';
 
 @Component({
   selector: 'app-generate',
@@ -82,6 +86,12 @@ export class GeneratePage implements OnInit {
       console.log(err);
       return;
     })
+  }
+
+  onGenerate() {
+    if (this.imageFile) {
+
+    }
   }
 
 }

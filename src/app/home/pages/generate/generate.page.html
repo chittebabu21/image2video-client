@@ -30,12 +30,15 @@
     </ion-item>
   </div>
 
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
   <ion-list *ngIf="imageUrl" class="btn-container">
     <ion-item>
       <ion-button
         color="tertiary"
         size="large"
         shape="round"
+        (click)="onGenerate()"
       >
         <ion-label color="light">GENERATE NOW!</ion-label>
       </ion-button>
