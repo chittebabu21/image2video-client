@@ -35,6 +35,12 @@
     text-align: center;
 }
 
+.message {
+    color: var(--ion-color-tertiary);
+    text-align: center;
+    letter-spacing: 0.3rem;
+}
+
 ion-button {
     text-align: center;
     width: auto;

@@ -1,10 +1,10 @@
-import { Image } from "./image";
+import { User } from "./user";
 
 export interface Video {
     video_id: number;
     video_url: string;
     generation_id: string;
     generated_on: Date;
-    image_id: number | null;
-    image?: Image;
+    user_id: number | null;
+    user?: User;
 }

@@ -4,6 +4,17 @@
     flex-wrap: wrap;
 }
 
+.video-container {
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 ion-text {
     font-family: 'Joti One', sans-serif !important;
     font-size: 1.8em;

@@ -6,4 +6,14 @@
   <div class="title-container">
     <ion-text color="primary">GALLERY</ion-text>
   </div>  
+
+  <ion-grid *ngIf="videos" class="video-container">
+    <ion-row *ngFor="let trustedVideo of trustedVideoUrlArray">
+      <ion-col>
+        <iframe [src]="trustedVideo"></iframe>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
 </ion-content>

@@ -6,10 +6,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 import { Helper } from '../../../utility/helper';
 import { UserService } from '../../../services/user.service';
-import { ImageService } from '../../../services/image.service';
 import { VideoService } from '../../../services/video.service';
-import { Image } from '../../../interfaces/image';
-import { Video } from '../../../interfaces/video';
 import { JsonResponse } from '../../../interfaces/json-response';
 import { environment } from '../../../../environments/environment';
 import { switchMap } from 'rxjs';
@@ -27,6 +24,7 @@ export class GeneratePage implements OnInit {
   imageUrl!: string;
   imageFile!: File;
   errorMsg!: string;
+  message!: string;
   isGenerating: boolean = false;
   width: string = '1024';
   height: string = '576';
@@ -36,7 +34,6 @@ export class GeneratePage implements OnInit {
     private alertCtrl: AlertController,
     private navCtrl: NavController,
     private userService: UserService,
-    private imageService: ImageService,
     private videoService: VideoService
   ) { }
 
@@ -102,33 +99,30 @@ export class GeneratePage implements OnInit {
     if (this.imageFile) {
       const userId = this.getUserId();
       this.isGenerating = true;
+      this.message = 'Hang tight!';
 
-      this.imageService.insertImage({ image_url: this.imageFile, user_id: userId }).pipe(
-        switchMap((response: any) => {
-          const jsonResponse = response as JsonResponse;
-          const imageId = jsonResponse.data.image_id;
+      this.videoService.generateVideo({
+        image: this.imageFile,
+        width: this.width,
+        height: this.height
+      }).pipe(
+        switchMap((generationResponse: any) => {
+            const generationJsonResponse = generationResponse as JsonResponse;
+            const generationId = generationJsonResponse.data.id;
+            this.message = 'Almost done...';
 
-          return this.videoService.generateVideo({
-            image: this.imageFile,
-            width: this.width,
-            height: this.height
-          }).pipe(
-            switchMap((videoResponse: any) => {
-              const videoJsonResponse = videoResponse as JsonResponse;
-              const generationId = videoJsonResponse.data.id;
+            setTimeout(() => {
+              this.message = 'Getting your video...';
+            }, 13000);
 
-              return this.videoService.insertVideo(generationId, imageId);
-            })
-          )
+            return this.videoService.insertVideo(generationId, userId);
         })
       ).subscribe({
         next: (insertResponse: any) => {
           const jsonResponse = insertResponse as JsonResponse;
-          const videoData = jsonResponse.data;
-          const videoUrl = `${this.baseUrl}/uploads/videos/${videoData.video_url}`;
 
-          console.log(videoUrl);
           this.errorMsg = '';
+          this.message = '';
           this.imageUrl = '';
           this.showSuccessAlert();
           this.uploadImageForm.reset();

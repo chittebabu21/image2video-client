@@ -13,6 +13,7 @@
       <ion-img
         role="button"
         class="image"
+        alt="Picked image"
         *ngIf="imageUrl"
         [src]="imageUrl"
         (click)="onImagePicked()"
@@ -48,4 +49,6 @@
       <ion-spinner name="bubbles" color="tertiary"></ion-spinner>
     </ion-item>
   </ion-list>
+
+  <p *ngIf="isGenerating" class="message">{{ message }}</p>
 </ion-content>
