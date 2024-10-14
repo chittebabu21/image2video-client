@@ -18,16 +18,21 @@ export class VideoService {
       'Authorization': `Bearer ${cleanedToken}`
     });
 
-    return this.http.post(`${this.baseUrl}/videos/generate`, body, { headers: headers });
+    const formData = new FormData();
+    formData.append('image', body.image);
+    formData.append('width', body.width);
+    formData.append('height', body.height);
+
+    return this.http.post(`${this.baseUrl}/videos/generate`, formData, { headers: headers });
   }
 
-  insertVideo(generation_id: string) {
+  insertVideo(generationId: string, imageId: number) {
     const token = this.userService.get('token');
     const cleanedToken = token?.replace(/^['"](.*)['"]$/, '$1');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${cleanedToken}`
     });
 
-    return this.http.post(`${this.baseUrl}/videos`, { generation_id: generation_id }, { headers: headers });
+    return this.http.post(`${this.baseUrl}/videos`, { generation_id: generationId, image_id: imageId }, { headers: headers });
   }
 }

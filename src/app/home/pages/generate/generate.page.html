@@ -33,7 +33,7 @@
   <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
 
   <ion-list *ngIf="imageUrl" class="btn-container">
-    <ion-item>
+    <ion-item *ngIf="!isGenerating">
       <ion-button
         color="tertiary"
         size="large"
@@ -42,6 +42,10 @@
       >
         <ion-label color="light">GENERATE NOW!</ion-label>
       </ion-button>
+    </ion-item>
+
+    <ion-item *ngIf="isGenerating">
+      <ion-spinner name="bubbles" color="tertiary"></ion-spinner>
     </ion-item>
   </ion-list>
 </ion-content>

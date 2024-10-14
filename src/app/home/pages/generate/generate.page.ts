@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
@@ -10,6 +10,9 @@ import { ImageService } from '../../../services/image.service';
 import { VideoService } from '../../../services/video.service';
 import { Image } from '../../../interfaces/image';
 import { Video } from '../../../interfaces/video';
+import { JsonResponse } from '../../../interfaces/json-response';
+import { environment } from '../../../../environments/environment';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-generate',
@@ -17,16 +20,24 @@ import { Video } from '../../../interfaces/video';
   styleUrls: ['./generate.page.scss'],
 })
 export class GeneratePage implements OnInit {
+  baseUrl = environment.baseUrl;
   uploadImageForm!: FormGroup;
   userId!: number;
+  imageName!: string;
   imageUrl!: string;
-  imageFile!: Blob;
+  imageFile!: File;
   errorMsg!: string;
+  isGenerating: boolean = false;
+  width: string = '1024';
+  height: string = '576';
 
   constructor(
     private helper: Helper, // add as provider in module file
     private alertCtrl: AlertController,
-    private userService: UserService
+    private navCtrl: NavController,
+    private userService: UserService,
+    private imageService: ImageService,
+    private videoService: VideoService
   ) { }
 
   ngOnInit() {
@@ -72,7 +83,6 @@ export class GeneratePage implements OnInit {
         try {
           const blob = this.helper.base64ToBlob(this.imageUrl.slice(23), mimeType);
           this.imageFile = new File([blob], `image.${format}`, { type: mimeType });
-          console.log(this.imageFile);
         } catch (err) {
           console.log('Error in processing image: ' + err);
           return;
@@ -90,8 +100,76 @@ export class GeneratePage implements OnInit {
 
   onGenerate() {
     if (this.imageFile) {
+      const userId = this.getUserId();
+      const imageExtension = this.imageFile.type.slice(6);
+      this.isGenerating = true;
 
+      this.imageService.insertImage({ image_url: `user-${userId}-image.${imageExtension}`, user_id: userId }).pipe(
+        switchMap((response: any) => {
+          const jsonResponse = response as JsonResponse;
+          const imageId = jsonResponse.data.image_id;
+
+          return this.videoService.generateVideo({
+            image: this.imageFile,
+            width: this.width,
+            height: this.height
+          }).pipe(
+            switchMap((videoResponse: any) => {
+              const videoJsonResponse = videoResponse as JsonResponse;
+              const generationId = videoJsonResponse.data.id;
+
+              return this.videoService.insertVideo(generationId, imageId);
+            })
+          )
+        })
+      ).subscribe({
+        next: (insertResponse: any) => {
+          const jsonResponse = insertResponse as JsonResponse;
+          const videoData = jsonResponse.data;
+          const videoUrl = `${this.baseUrl}/uploads/videos/${videoData.video_url}`;
+
+          console.log(videoUrl);
+          this.errorMsg = '';
+          this.imageUrl = '';
+          this.showSuccessAlert();
+          this.uploadImageForm.reset();
+          console.log(jsonResponse);
+
+          setTimeout(() => {
+            this.navCtrl.navigateForward('/home/gallery');
+          }, 5000);
+        },
+        error: (err) => {
+          console.log(err);
+          this.errorMsg = 'Error in generating video. Please try again.';
+        },
+        complete: () => {
+          this.isGenerating = false;
+          console.log('Video generated and inserted successfully!');
+        }
+      });
+    } else {
+      this.errorMsg = 'Unable to identify image file.';
     }
+  }
+
+  async showSuccessAlert() {
+    const successAlert = await this.alertCtrl.create({
+      header: 'SUCCESS!',
+      message: 'Video generated successfully!',
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          this.navCtrl.navigateForward('/home/gallery');
+        }
+      }]
+    });
+
+    await successAlert.present();
+
+    setTimeout(() => {
+      successAlert.dismiss();
+    }, 3000);
   }
 
 }

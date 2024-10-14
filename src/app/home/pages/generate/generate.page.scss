@@ -32,6 +32,7 @@
 
 .error {
     color: var(--ion-color-danger);
+    text-align: center;
 }
 
 ion-button {
@@ -45,6 +46,11 @@ ion-text {
     font-style: normal;
     padding: 1.2em 0.3em;
     text-align: center;
+}
+
+ion-spinner {
+    width: 5rem;
+    height: 5rem;
 }
 
 @media only screen and (min-width: 500px) {

@@ -1,0 +1,13 @@
+.title-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+ion-text {
+    font-family: 'Joti One', sans-serif !important;
+    font-size: 1.8em;
+    font-style: normal;
+    padding: 1.2em 0.3em;
+    text-align: center;
+}
