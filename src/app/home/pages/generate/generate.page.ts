@@ -101,10 +101,9 @@ export class GeneratePage implements OnInit {
   onGenerate() {
     if (this.imageFile) {
       const userId = this.getUserId();
-      const imageExtension = this.imageFile.type.slice(6);
       this.isGenerating = true;
 
-      this.imageService.insertImage({ image_url: `user-${userId}-image.${imageExtension}`, user_id: userId }).pipe(
+      this.imageService.insertImage({ image_url: this.imageFile, user_id: userId }).pipe(
         switchMap((response: any) => {
           const jsonResponse = response as JsonResponse;
           const imageId = jsonResponse.data.image_id;

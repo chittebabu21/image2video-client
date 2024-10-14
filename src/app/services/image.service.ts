@@ -11,13 +11,17 @@ export class ImageService {
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
-  insertImage(body: { image_url: string; user_id: number }) {
+  insertImage(body: { image_url: File; user_id: number }) {
     const token = this.userService.get('token');
     const cleanedToken = token?.replace(/^['"](.*)['"]$/, '$1');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${cleanedToken}`
     });
 
-    return this.http.post(`${this.baseUrl}/images`, body, { headers: headers });
+    const formData = new FormData();
+    formData.append('image_url', body.image_url);
+    formData.append('user_id', body.user_id.toString(10));
+
+    return this.http.post(`${this.baseUrl}/images`, formData, { headers: headers });
   }
 }
