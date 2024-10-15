@@ -2,11 +2,29 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: white;
+    padding: 1.2em 0.3em;
 }
 
 .video-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.video {
+    display: flex;
+    flex-direction: column;
 }
 
 .image {
@@ -15,10 +33,25 @@
     object-fit: cover;
 }
 
+.error {
+    color: var(--ion-color-danger);
+    text-align: center;
+}
+
 ion-text {
     font-family: 'Joti One', sans-serif !important;
     font-size: 1.8em;
     font-style: normal;
-    padding: 1.2em 0.3em;
+    padding: 0.5em 0.3em;
     text-align: center;
+}
+
+iframe {
+    width: 256px;
+    height: 256px;
+    border: 0.4rem inset var(--ion-color-secondary);
+}
+
+iframe:hover {
+    border: 0.4rem inset var(--ion-color-warning);
 }

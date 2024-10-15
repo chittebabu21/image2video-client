@@ -26,8 +26,8 @@ export class GeneratePage implements OnInit {
   errorMsg!: string;
   message!: string;
   isGenerating: boolean = false;
-  width: string = '1024';
-  height: string = '576';
+  width: string = '768';
+  height: string = '768';
 
   constructor(
     private helper: Helper, // add as provider in module file
@@ -71,14 +71,15 @@ export class GeneratePage implements OnInit {
 
       this.imageUrl = imageDataUrl;
       const supportedFormats = ['png', 'jpg', 'jpeg'];
-      const match = this.imageUrl.match(/^data:image\/(png|jpg|jpeg);/);
+      const match = this.imageUrl.match(/^data:image\/(png|jpg|jpeg);base64,(.+)$/);
 
       if (match && supportedFormats.includes(match[1])) {
         const format = match[1];
+        const base64String = match[2];
         const mimeType = `image/${format}`;
 
         try {
-          const blob = this.helper.base64ToBlob(this.imageUrl.slice(23), mimeType);
+          const blob = this.helper.base64ToBlob(base64String, mimeType);
           this.imageFile = new File([blob], `image.${format}`, { type: mimeType });
         } catch (err) {
           console.log('Error in processing image: ' + err);
@@ -96,6 +97,7 @@ export class GeneratePage implements OnInit {
   }
 
   onGenerate() {
+    console.log(this.imageFile);
     if (this.imageFile) {
       const userId = this.getUserId();
       this.isGenerating = true;

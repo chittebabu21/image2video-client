@@ -56,4 +56,14 @@ export class VideoService {
 
     return this.http.post(`${this.baseUrl}/videos`, { generation_id: generationId, user_id: userId }, { headers: headers });
   }
+
+  deleteVideo(videoId: number) {
+    const token = this.userService.get('token');
+    const cleanedToken = token?.replace(/^['"](.*)['"]$/, '$1');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${cleanedToken}`
+    });
+
+    return this.http.delete(`${this.baseUrl}/videos/${videoId}`, { headers: headers });
+  }
 }

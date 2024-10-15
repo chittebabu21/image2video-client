@@ -7,10 +7,27 @@
     <ion-text color="primary">GALLERY</ion-text>
   </div>  
 
-  <ion-grid *ngIf="videos" class="video-container">
-    <ion-row *ngFor="let trustedVideo of trustedVideoUrlArray">
-      <ion-col>
+  <ion-grid *ngIf="trustedVideoUrlArray.length" class="video-container">
+    <ion-row *ngFor="let trustedVideo of trustedVideoUrlArray; let i = index;">
+      <ion-col class="video">
         <iframe [src]="trustedVideo"></iframe>
+        <div class="btn-container">
+          <ion-button
+            fill="clear"
+            color="danger"
+            (click)="confirmDeleteVideo(i, videos[i].video_id)"
+          >
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button
+            fill="clear"
+            color="dark"
+            (click)="downloadVideo(trustedVideo, i)"
+          >
+            <ion-icon name="download-outline"></ion-icon>
+          </ion-button>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
