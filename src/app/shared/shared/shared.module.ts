@@ -9,6 +9,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { ResetPasswordModalComponent } from '../../components/reset-password-modal/reset-password-modal.component';
 import { EditProfileImageModalComponent } from '../../components/edit-profile-image-modal/edit-profile-image-modal.component';
+import { Helper } from '../../utility/helper';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { EditProfileImageModalComponent } from '../../components/edit-profile-im
     TabsComponent,
     ResetPasswordModalComponent,
     EditProfileImageModalComponent
-  ]
+  ],
+  providers: [Helper]
 })
 export class SharedModule { }

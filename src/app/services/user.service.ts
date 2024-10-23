@@ -18,7 +18,7 @@ export class UserService {
     return this.http.get<JsonResponse>(`${this.baseUrl}/users/${id}`).pipe(
       map(res => {
         res.data.created_on = new Date(res.data.created_on);
-        res.data.profile_image_url = `${this.uploadsUrl}/uploads/photos/${res.data.profile_image_url}` || null;
+        res.data.profile_image_url = `${this.uploadsUrl}/uploads/images/${res.data.profile_image_url}` || null;
 
         if (res.data.is_verified !== 0 && res.data.is_verified !== 1) {
           throw new Error('Invalid value for verification field...');
@@ -41,7 +41,7 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/users/oauth_user`, body);
   }
 
-  updateUser(id: number, body: { password_hash?: string; profile_image_url?: string; is_verified?: 0 | 1 }) {
+  updateUser(id: number, body: any) { // { password_hash?: string; profile_image_url?: string; is_verified?: 0 | 1 }
     const token = this.get('token');
     const cleanedToken = token?.replace(/^['"](.*)['"]$/, '$1');
     const headers = new HttpHeaders({

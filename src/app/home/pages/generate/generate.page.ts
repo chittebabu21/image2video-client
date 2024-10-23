@@ -20,7 +20,6 @@ export class GeneratePage implements OnInit {
   baseUrl = environment.baseUrl;
   uploadImageForm!: FormGroup;
   userId!: number;
-  imageName!: string;
   imageUrl!: string;
   imageFile!: File;
   errorMsg!: string;
@@ -93,11 +92,10 @@ export class GeneratePage implements OnInit {
     }).catch(err => {
       console.log(err);
       return;
-    })
+    });
   }
 
   onGenerate() {
-    console.log(this.imageFile);
     if (this.imageFile) {
       const userId = this.getUserId();
       this.isGenerating = true;

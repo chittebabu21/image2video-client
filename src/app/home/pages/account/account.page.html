@@ -27,6 +27,19 @@
           <ion-text class="verification-text" *ngIf="user.is_verified === 1" color="success">Verified</ion-text>
           <ion-text class="verification-text" *ngIf="user.is_verified === 0" color="danger">Please check your email and verify your account</ion-text>
         </div>
+
+        <br>
+        <div class="btn-container">
+          <ion-button
+            fill="solid"
+            size="large"
+            shape="round"
+            color="tertiary"
+            (click)="logout()"
+          >
+            <ion-label color="light">LOGOUT</ion-label>
+          </ion-button>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

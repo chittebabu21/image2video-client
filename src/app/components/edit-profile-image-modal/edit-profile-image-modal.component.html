@@ -1,3 +1,53 @@
-<p>
-  edit-profile-image-modal works!
-</p>
+<app-header></app-header>
+
+<ion-content [fullscreen]="true">
+  <div class="title-container">
+    <ion-text color="primary">UPLOAD YOUR IMAGE!</ion-text>
+  </div>  
+
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="picker">
+      <ion-item>
+        <ion-img
+          role="button"
+          class="image"
+          alt="Picked image"
+          *ngIf="profileImageUrl"
+          [src]="profileImageUrl"
+          (click)="onImagePicked()"
+        ></ion-img>
+
+        <ion-button
+          color="primary"
+          size="default"
+          (click)="onImagePicked()"
+          *ngIf="!profileImageUrl"
+        >
+          <ion-label color="light">SELECT IMAGE</ion-label>
+          <ion-icon name="image-outline" slot="start" color="light"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+
+    <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+    <div class="btn-container">
+      <ion-button
+        fill="outline"
+        color="secondary"
+        (click)="onCancel()"
+      >
+        CANCEL
+        <ion-icon slot="end" name="close-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button
+        type="submit"
+        [disabled]="!editForm.dirty && !profileImageFile"
+      >
+        SAVE
+        <ion-icon slot="end" name="save-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

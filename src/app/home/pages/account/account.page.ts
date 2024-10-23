@@ -43,7 +43,7 @@ export class AccountPage implements OnInit {
             this.authUserImageUrl = user.profile_image_url.slice(37);
           }
 
-          if (user.profile_image_url === `${this.uploadsUrl}/uploads/photos/null`) {
+          if (user.profile_image_url === `${this.uploadsUrl}/uploads/images/null`) {
             user.profile_image_url = '/assets/placeholder-images/user.png';
           }
 
@@ -62,5 +62,9 @@ export class AccountPage implements OnInit {
         }).then(modalEl => modalEl.present());
       }
     });
+  }
+
+  logout() {
+    this.userService.logout();
   }
 }
