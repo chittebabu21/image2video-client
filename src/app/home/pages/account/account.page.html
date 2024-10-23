@@ -1,13 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>account</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">account</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-sub-header></app-sub-header>
+
+  <div class="title-container">
+    <ion-text color="primary">ACCOUNT</ion-text>
+  </div>  
+
+  <ion-grid *ngIf="user" class="container">
+    <ion-row>
+      <ion-col>
+        <div class="profile-img">
+          <ion-avatar slot="start">
+            <img *ngIf="!authUserImageUrl" [src]="user.profile_image_url" alt="profile image">
+            <img *ngIf="authUserImageUrl" [src]="authUserImageUrl" alt="auth user profile image">
+          </ion-avatar>
+
+          <ion-button
+            fill="clear"
+            color="secondary"
+            (click)="onEditProfileImg(user.user_id)"
+          >
+            <ion-icon slot="icon-only" name="build-outline"></ion-icon>
+          </ion-button>
+
+          <ion-text class="verification-text" *ngIf="user.is_verified === 1" color="success">Verified</ion-text>
+          <ion-text class="verification-text" *ngIf="user.is_verified === 0" color="danger">Please check your email and verify your account</ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

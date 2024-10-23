@@ -1,15 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { User } from '../interfaces/user';
+import { JsonResponse } from '../interfaces/json-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private baseUrl = environment.baseUrl;
+  private uploadsUrl = environment.uploadsUrl;
 
   constructor(private http: HttpClient) { }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<JsonResponse>(`${this.baseUrl}/users/${id}`).pipe(
+      map(res => {
+        res.data.created_on = new Date(res.data.created_on);
+        res.data.profile_image_url = `${this.uploadsUrl}/uploads/photos/${res.data.profile_image_url}` || null;
+
+        if (res.data.is_verified !== 0 && res.data.is_verified !== 1) {
+          throw new Error('Invalid value for verification field...');
+        }
+
+        return res.data;
+      })
+    );
+  }
 
   getUserByEmail(emailAddress: string) {
     return this.http.get(`${this.baseUrl}/users/user?email_address=${emailAddress}`);
