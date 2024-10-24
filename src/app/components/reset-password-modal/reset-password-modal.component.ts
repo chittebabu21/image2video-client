@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AlertController, ModalController, NavController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 
 import { UserService } from '../../services/user.service';
 
@@ -14,7 +14,6 @@ export class ResetPasswordModalComponent implements OnInit {
   errorMsg = '';
 
   constructor(
-    private navCtrl: NavController, 
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
     private userService: UserService

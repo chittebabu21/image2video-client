@@ -9,6 +9,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { ResetPasswordModalComponent } from '../../components/reset-password-modal/reset-password-modal.component';
 import { EditProfileImageModalComponent } from '../../components/edit-profile-image-modal/edit-profile-image-modal.component';
+import { UpdatePasswordModalComponent } from '../../components/update-password-modal/update-password-modal.component';
 import { Helper } from '../../utility/helper';
 
 
@@ -19,7 +20,8 @@ import { Helper } from '../../utility/helper';
     FooterComponent,
     TabsComponent,
     ResetPasswordModalComponent,
-    EditProfileImageModalComponent
+    EditProfileImageModalComponent,
+    UpdatePasswordModalComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { Helper } from '../../utility/helper';
     FooterComponent,
     TabsComponent,
     ResetPasswordModalComponent,
-    EditProfileImageModalComponent
+    EditProfileImageModalComponent,
+    UpdatePasswordModalComponent
   ],
   providers: [Helper]
 })

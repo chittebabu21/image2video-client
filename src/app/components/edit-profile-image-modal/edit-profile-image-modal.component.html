@@ -1,6 +1,16 @@
 <app-header></app-header>
 
 <ion-content [fullscreen]="true">
+  <div class="close-btn-container">
+    <ion-button
+      fill="transparent"
+      type="button"
+      (click)="onCancel()"
+    >
+      <ion-icon name="close-outline" size="large"></ion-icon>
+    </ion-button>
+  </div>
+  
   <div class="title-container">
     <ion-text color="primary">UPLOAD YOUR IMAGE!</ion-text>
   </div>  

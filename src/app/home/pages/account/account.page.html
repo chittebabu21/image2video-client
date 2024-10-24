@@ -29,6 +29,35 @@
         </div>
 
         <br>
+        <div class="link-container">
+          <ion-button
+            fill="clear"
+            size="small"
+            color="dark"
+            *ngIf="!authUserImageUrl"
+            (click)="onUpdatePassword(user.user_id)"
+          >
+            <ion-label color="secondary">Update Password</ion-label>
+          </ion-button>
+
+          <ion-button
+            fill="clear"
+            size="small"
+            color="dark"
+          >
+            <ion-label color="secondary">Terms & Conditions</ion-label>
+          </ion-button>
+
+          <ion-button
+            fill="clear"
+            size="small"
+            color="dark"
+          >
+            <ion-label color="secondary">Privacy Policy</ion-label>
+          </ion-button>
+        </div>
+
+        <br>
         <div class="btn-container">
           <ion-button
             fill="solid"

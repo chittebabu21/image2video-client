@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 
 import { environment } from '../../../../environments/environment';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../interfaces/user';
 import { EditProfileImageModalComponent } from '../../../components/edit-profile-image-modal/edit-profile-image-modal.component';
+import { UpdatePasswordModalComponent } from 'src/app/components/update-password-modal/update-password-modal.component';
 
 @Component({
   selector: 'app-account',
@@ -19,7 +20,8 @@ export class AccountPage implements OnInit {
 
   constructor(
     private userService: UserService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -64,7 +66,19 @@ export class AccountPage implements OnInit {
     });
   }
 
+  onUpdatePassword(id: number) {
+    this.userService.getUserById(id).subscribe({
+      next: (user: User) => {
+        this.modalCtrl.create({
+          component: UpdatePasswordModalComponent,
+          componentProps: { selectedUser: user }
+        }).then(modalEl => modalEl.present());
+      }
+    });
+  }
+
   logout() {
     this.userService.logout();
+    this.navCtrl.navigateBack('/login');
   }
 }

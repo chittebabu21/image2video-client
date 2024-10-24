@@ -38,6 +38,11 @@
     max-height: 100%;
 }
 
+.close-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .error {
     color: var(--ion-color-danger);
     text-align: center;

@@ -106,7 +106,7 @@ export class EditProfileImageModalComponent  implements OnInit {
         const successAlert = await this.alertCtrl.create({
           header: 'SUCCESS!',
           subHeader: 'Your profile picture is updated successfully!',
-          message: 'Please clcik OK to continue.',
+          message: 'Please click OK to continue.',
           cssClass: 'color: green',
           backdropDismiss: false,
           buttons: [{
@@ -117,7 +117,7 @@ export class EditProfileImageModalComponent  implements OnInit {
           }]
         });
 
-        successAlert.present();
+        await successAlert.present();
         this.editForm.reset();
         this.profileImageUrl = '';
         this.errorMsg = '';

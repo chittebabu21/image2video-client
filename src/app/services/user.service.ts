@@ -64,6 +64,16 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/users/login`, payload, { headers: headers });
   }
 
+  validatePassword(id: number, password_hash: string) {
+    const token = this.get('token');
+    const cleanedToken = token?.replace(/^['"](.*)['"]$/, '$1');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${cleanedToken}`
+    });
+
+    return this.http.post(`${this.baseUrl}/users/validate-password/${id}`, { password_hash: password_hash }, { headers: headers });
+  }
+
   sendVerificationLink(emailAddress: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/users/verify_email_request`, { email_address: emailAddress });
   }
@@ -73,7 +83,7 @@ export class UserService {
   }
 
   logout() {
-    window.localStorage.clear();
+    localStorage.clear();
   }
 
   set(key: string, value: string | number) {
